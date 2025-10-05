@@ -154,5 +154,31 @@ dig @localhost atharvdevops.ddns.net
    ```
    - Test by login:
    ```bash
-   mysql-u root
+   mysql -u root
    ```
+
+#### Step 6: Installing Worspress:
+ - Login to mysql server using `mysql -u root`
+   ```bash
+   CREATE DATABASE wordpressdb;
+   CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY 'setapasswordhere';
+   GRANT ALL PRIVILEGES ON wordpressdb.* TO 'wordpressuser'@'localhost';
+   FLUSH PRIVILEGES;
+   ```
+- Download and Install Wordpress:
+  ```bash
+  cd /tmp
+  wget https://wordpress.org/latest.tar.gz
+  tar -xzvf latest.tar.gz
+  mv wordpress/* /var/www/atharvdevops.ddns.net/
+  chown -R www-data:www-data /var/www/atharvdevops.ddns.net
+  chmod -R 755 /var/www/atharvdevops.ddns.net
+  ```
+- Open on browser `atharvdevops.ddns.net`
+  - Follow the procedure for installing wordpress
+  - Login into DB
+  - Setup the wordpress page
+    
+- Final Results:
+<img width="2999" height="1793" alt="image" src="https://github.com/user-attachments/assets/c65947cf-0438-4b23-a6b6-68ffc0073fd1" />
+ 
