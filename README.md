@@ -13,7 +13,49 @@
   ```bash
   sudo apt update && sudo apt upgrade -y
   sudo passwd #set password for your user
+  ```
 
+### Step 2:Domain Name & DNS Configuration:
+- **Domain**: `atharvdevops.ddns.net` Got is for free from `https://www.noip.com/`
+- **DNS Server**: Configured with `bind9` on the EC2 Instance
+  ```bash
+  sudo apt install bind9 bind9utils bind9-docs
+  ```
+#### BIND9 Configuration Files:
+1. `name.conf.local`
+   ```bash
+    zone "atharvdevops.ddns.net" {
+	    type master;
+	    file "/etc/bind/db.atharvdevops.ddns.net";
+    };
+   ```
+   Include your zone refrence in `/etc/bind/named.conf.local`
+2. Zone File
+   ```bash
+   $TTL    86400
+    @       IN      SOA     ns1.example.ddns.net. root.localhost. (
+                               177          ; Serial
+                             604800         ; Refresh
+                              86400         ; Retry
+                            2419200         ; Expire
+                              86400 )       ; Negative Cache TTL
+    ;
+    @       IN      NS      ns1.example.ddns.net.
+    ns1     IN      A       X.X.X.X
+    mail    IN      MX 10   mail.example.ddns.net.
+    example.ddns.net.  IN      A       X.X.X.X
+    www     IN      A       X.X.X.X
+    mail    IN      A       X.X.X.X
+   ```
+   Place your zone files in `/etc/bind`
 
+Tested BIND9 Configurations:
+```bash
+sudo named-checkconf
+sudo named-checkzone atharvdevops.ddns.net /etc/bind/db.atharvdevops.ddns.net
+sudo systemctl restart bind9
+dig @localhost atharvdevops.ddns.net
+```
+    
   
 
