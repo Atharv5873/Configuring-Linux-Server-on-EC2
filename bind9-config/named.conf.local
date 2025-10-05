@@ -1,0 +1,4 @@
+zone "atharvdevops.ddns.net" {
+	type master;
+	file "/etc/bind/db.atharvdevops.ddns.net";
+};
