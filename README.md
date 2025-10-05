@@ -128,4 +128,31 @@ dig @localhost atharvdevops.ddns.net
    sudo certbot renew --dry-run
    ```
    - Output confirms that renewal works successfully.
-	
+
+#### Step 5: Compleating LAMP setup:
+1. PHP:
+	- Installing php:
+	  ```bash
+	  apt install php php-mysql libapache2-mod-php
+	  ```
+	- Testing php:
+ 		- Create a test php file: `vim /var/www/atharvdevops.ddns.net/test.php`
+   		```bash
+     	<?php
+     		phpinfo();
+     	?>
+     	```
+     	- Test in browser : `atharvdevops.ddns.net/test.php`
+2. MySql:
+   - Installing mysql:
+   ```bash
+   apt install mysql-server
+   ```
+   - Securing:
+   ```bash
+   mysql_secure_installation
+   ```
+   - Test by login:
+   ```bash
+   mysql-u root
+   ```
