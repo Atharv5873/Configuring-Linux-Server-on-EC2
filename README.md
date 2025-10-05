@@ -15,7 +15,7 @@
   sudo passwd #set password for your user
   ```
 
-### Step 2:Domain Name & DNS Configuration:
+### Step 2: Domain Name & DNS Configuration:
 - **Domain**: `atharvdevops.ddns.net` Got is for free from `https://www.noip.com/`
 - **DNS Server**: Configured with `bind9` on the EC2 Instance
   ```bash
@@ -56,6 +56,36 @@ sudo named-checkzone atharvdevops.ddns.net /etc/bind/db.atharvdevops.ddns.net
 sudo systemctl restart bind9
 dig @localhost atharvdevops.ddns.net
 ```
-    
-  
 
+### Step 3: Apache2 Setup & Virtual Host Configuration
+1. Apache2 Installation
+	```bash
+ 	sudo apt install apache2 -y
+ 	sudo systemctl enable apache2
+	sudo systemctl start apache2
+	```
+2. Created Directory for my Site:
+   ```bash
+   sudo mkdir -p /var/www/atharvdevops.ddns.net
+   sudo chown -R www-data:www-data /var/www/atharvdevops.ddns.net
+   sudo chmod 755 /var/www/atharvdevops.ddns.net
+   ```
+3. Created a test file `/var/www/atharvdevops.ddns.net/index.html`
+	- Test file is [index.html](apache2-config/index.html)
+
+5. Create Virtual Host Configuration
+	- Created a new virtual host file:
+     ```bash
+     sudo nano /etc/apache2/sites-available/atharvdevops.conf
+	 ```
+	- Enable the new virtual host:
+	```bash
+ 	sudo a2ensite atharvdevops.conf
+	sudo apache2ctl configtest
+	sudo systemctl restart apache2
+	```
+6. Test
+   Open Browser and Verified at `http://atharvdevops.ddns.net/`
+   <img width="1855" height="1006" alt="image" src="https://github.com/user-attachments/assets/df4d7350-a126-4f0e-9f35-980e39f535e9" />
+
+	
