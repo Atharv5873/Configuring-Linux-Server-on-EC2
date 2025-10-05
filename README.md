@@ -86,6 +86,46 @@ dig @localhost atharvdevops.ddns.net
 	```
 6. Test
    Open Browser and Verified at `http://atharvdevops.ddns.net/`
+   
    <img width="1855" height="1006" alt="image" src="https://github.com/user-attachments/assets/df4d7350-a126-4f0e-9f35-980e39f535e9" />
 
+### Step 4: Enable HTTPS (SSL/TLS) with Certbot:
+1. Install Certbot
+   ```bash
+   sudo apt update
+   sudo apt install certbot python3-certbot-apache -y
+   ```
+2. Obtain SSL Certificates
+   ```bash
+   sudo certbot -d atharvdevops.ddns.net
+   ```
+   - Enter email for urgent notices (example: atharv5873@gmail.com)
+   - Agree to the Terms of Service
+
+   **Result:**
+   - Certificate issued and saved at:
+     ```bash
+     /etc/letsencrypt/live/atharvdevops.ddns.net/fullchain.pem
+	 /etc/letsencrypt/live/atharvdevops.ddns.net/privkey.pem
+     ```
+   - Apache virtual host updated automatically to include SSL:
+     ```bash
+     /etc/apache2/sites-available/atharvdevops.ddns.net-le-ssl.conf
+	 ```
+
+3. Test HTTPS Open Browser: `https://atharvdevops.ddns.net/`
+    
+   <img width="2993" height="1790" alt="image" src="https://github.com/user-attachments/assets/b6a930fd-f283-4267-b4ca-c2d3b0b53746" />
+
+4. Automatic Renewal
+   - Certbot sets up a systemd timer to renew certificates automatically:
+   ```bash
+   systemctl status certbot.timer
+   ```
+   	- Runs twice daily
+   	- Renewal simulation test:
+   ```bash
+   sudo certbot renew --dry-run
+   ```
+   - Output confirms that renewal works successfully.
 	
